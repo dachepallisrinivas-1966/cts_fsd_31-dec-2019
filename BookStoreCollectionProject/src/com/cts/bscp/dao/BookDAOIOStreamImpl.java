@@ -1,7 +1,7 @@
-package com.cts.bsm.dao;
+package com.cts.bscp.dao;
 
-import com.cts.bsm.model.Book;
-import com.cts.bsm.exception.BookStoreException;
+import com.cts.bscp.model.Book;
+import com.cts.bscp.exception.BookStoreException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class BookDAOStreamImpl implements IBookDAO {
-	public static final String DATA_STORE_FILE_NAME = "./bookstore.dat";
+public class BookDAOIOStreamImpl implements IBookDAO {
+	public static final String DATA_STORE_FILE_NAME = "bookstore.dat";
 
 	private Map<String, Book> books;
 
-	public BookDAOStreamImpl() throws BookStoreException {
+	public BookDAOIOStreamImpl() throws BookStoreException {
 		File file = new File(DATA_STORE_FILE_NAME);
 
 		if (!file.exists()) {

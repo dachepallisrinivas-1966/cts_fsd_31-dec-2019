@@ -1,4 +1,4 @@
-package com.cts.bsm.service;
+package com.cts.bscp.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -6,18 +6,22 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.cts.bsm.dao.BookDAOStreamImpl;
-import com.cts.bsm.dao.IBookDAO;
-import com.cts.bsm.exception.BookStoreException;
-import com.cts.bsm.model.Book;
+import com.cts.bscp.dao.BookDAOIOStreamImpl;
+import com.cts.bscp.dao.IBookDAO;
+import com.cts.bscp.exception.BookStoreException;
+import com.cts.bscp.model.Book;
 
 public class BookServiceImpl implements IBookService {
 	
 	private IBookDAO bookDao;
 
+	public IBookDAO getDAO(){
+		return bookDao;
+	}
+	
 	public BookServiceImpl() throws BookStoreException {
 		// bookDao = new BookDAOCollectionImpl();
-		bookDao = new BookDAOStreamImpl();
+		bookDao = new BookDAOIOStreamImpl();
 		
 	}
 	
@@ -67,7 +71,7 @@ public class BookServiceImpl implements IBookService {
 		List<String> errMsgs = new ArrayList<>();
 		
 		if(!isValidBcode(book.getBcode()))
-			errMsgs.add("bcode should start with a capital followed by 3 digits");
+			errMsgs.add("bcode should start with a capital alphabet followed by 3 digits");
 		
 		if(!isValidTitle(book.getTitle()))
 			errMsgs.add("Title must start with capital and must be in between 4 to 20 chars in length");
@@ -129,10 +133,7 @@ public class BookServiceImpl implements IBookService {
 		return isDone;
 	}
 
-	public IBookDAO getDAO(){
-		return bookDao;
-	}
-	
+
 	@Override
 	public void persist() throws BookStoreException {
 		bookDao.persist();
