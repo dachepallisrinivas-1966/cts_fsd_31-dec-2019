@@ -1,16 +1,20 @@
-package com.cts.bscp.ui;
+package com.cts.bsm.ui;
+
+import com.cts.bsm.model.Book;
+import com.cts.bsm.model.BookStoreAppMenu;
+import com.cts.bsm.model.Zonar;
+import com.cts.bsm.exception.BookStoreException;
+import com.cts.bsm.service.BookServiceImpl;
+import com.cts.bsm.service.IBookService;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
-import com.cts.bscp.exception.BookStoreException;
-import com.cts.bscp.model.Book;
-import com.cts.bscp.model.BookStoreAppMenu;
-import com.cts.bscp.service.BookServiceImpl;
-import com.cts.bscp.service.IBookService;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BookStoreManagementUI {
 
@@ -75,11 +79,11 @@ public class BookStoreManagementUI {
 		}
 
 		scan.close();
-//		try {
-//			//bookService.persist();
-//		} catch (BookStoreException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			bookService.persist();
+		} catch (BookStoreException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -90,6 +94,15 @@ public class BookStoreManagementUI {
 			book.setBcode(scan.next());
 			System.out.print("Title: ");
 			book.setTitle(scan.next());
+			System.out.print("Volume: ");
+			if (scan.hasNextInt())
+				book.setVolume(scan.nextInt());
+			else {
+				scan.next();
+				throw new BookStoreException(
+						"Volumn is a non-fractional number");
+			}
+
 			System.out.print("PublishDate(dd-MM-yyyy): ");
 			String pubDtStr = scan.next();
 
@@ -106,6 +119,21 @@ public class BookStoreManagementUI {
 				scan.next();
 				throw new BookStoreException("Price is a number");
 			}
+			String zonarValStr = Arrays.toString(Zonar.values());
+			StringBuilder sb = new StringBuilder(zonarValStr);
+			sb.deleteCharAt(0);
+			sb.deleteCharAt(sb.length() - 1);
+			zonarValStr = sb.toString();
+			zonarValStr = zonarValStr.replace(", ", "|");
+			System.out.print("Zonar " + zonarValStr + " : ");
+			String zonarStr = scan.next();
+			Pattern zonarPattern = Pattern.compile(zonarValStr);
+			Matcher zonarMatcher = zonarPattern.matcher(zonarStr);
+			if (zonarMatcher.matches())
+				book.setZonar(Zonar.valueOf(zonarStr.toUpperCase()));
+			else
+				throw new BookStoreException(
+						"Choose a zonar from given values only");
 
 			String bcode = bookService.add(book);
 			System.out.println("Book is Added with code: " + bcode);

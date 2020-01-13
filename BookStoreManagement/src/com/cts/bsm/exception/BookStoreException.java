@@ -1,4 +1,4 @@
-package com.cts.bscp.exception;
+package com.cts.bsm.exception;
 
 @SuppressWarnings("serial")
 public class BookStoreException extends Exception {

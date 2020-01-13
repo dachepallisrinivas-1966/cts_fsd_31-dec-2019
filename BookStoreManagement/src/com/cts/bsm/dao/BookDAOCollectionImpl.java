@@ -1,14 +1,14 @@
-package com.cts.bscp.dao;
+package com.cts.bsm.dao;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.cts.bscp.exception.BookStoreException;
-import com.cts.bscp.model.Book;
+import com.cts.bsm.exception.BookStoreException;
+import com.cts.bsm.model.Book;
 
-public class BookDAOCollectionImpl implements IBookDAO {
+public class BookDAOCollectionImpl implements IBookDAO{
 	
 	private Map<String, Book> books;
 	
@@ -58,10 +58,10 @@ public class BookDAOCollectionImpl implements IBookDAO {
 		return isDone;
 	}
 
-//	@Override
-//	public void persist() throws BookStoreException {
-//		/* no implementation is required */
-//	}
+	@Override
+	public void persist() throws BookStoreException {
+		/* no implementation is required */
+	}
 	
 	
 }

@@ -1,4 +1,4 @@
-package com.cts.bscp.model;
+package com.cts.bsm.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -11,18 +11,23 @@ public class Book implements Serializable /* implements Comparable<Book> */ {
 
 	private String bcode;
 	private String title;
+	private int volume;
 	private LocalDate publishDate;
+	private Zonar zonar;
 	private double price;
 
 	public Book() {
 		/* default constructor */
 	}
 
-	public Book(String bcode, String title, LocalDate publishDate, double price) {
+	public Book(String bcode, String title, int volume, LocalDate publishDate,
+			Zonar zonar, double price) {
 		super();
 		this.bcode = bcode;
 		this.title = title;
+		this.volume = volume;
 		this.publishDate = publishDate;
+		this.zonar = zonar;
 		this.price = price;
 	}
 
@@ -42,12 +47,28 @@ public class Book implements Serializable /* implements Comparable<Book> */ {
 		this.title = title;
 	}
 
+	public int getVolume() {
+		return volume;
+	}
+
+	public void setVolume(int volume) {
+		this.volume = volume;
+	}
+
 	public LocalDate getPublishDate() {
 		return publishDate;
 	}
 
 	public void setPublishDate(LocalDate publishDate) {
 		this.publishDate = publishDate;
+	}
+
+	public Zonar getZonar() {
+		return zonar;
+	}
+
+	public void setZonar(Zonar zonar) {
+		this.zonar = zonar;
 	}
 
 	public double getPrice() {
@@ -60,18 +81,11 @@ public class Book implements Serializable /* implements Comparable<Book> */ {
 
 	@Override
 	public String toString() {
-		StringBuilder output = new StringBuilder("Book Code : ");
-		output.append(bcode);
-		output.append("\tTitle : ");
-		output.append(title);
-		output.append("\tPublish Date :");
-		output.append(publishDate);
-		output.append("\tPrice : ");
-		output.append(price);
-		return output.toString();
+		return "Book [bcode=" + bcode + ", title=" + title + ", volume="
+				+ volume + ", publishDate=" + publishDate + ", zonar=" + zonar
+				+ ", price=" + price + "]";
 	}
 
-	
 	/*
 	@Override
 	public int compareTo(Book book) {
