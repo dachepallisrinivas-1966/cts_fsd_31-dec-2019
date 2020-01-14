@@ -1,0 +1,101 @@
+ORDER PROCESSING SYSTEM
+----------------------
+integrity constraints:
+----------------------
+1) not null
+2) unique
+3) primary key
+4) foreign key
+5) check
+
+constraint options:
+-------------------
+a) default
+b) auto_increment		(only for integer columns)
+	auto increment strategy depends on the database engine we are using.
+	(MySQL, InnoDB)
+c) on delete action
+d) on update action
+	action can be CASCADE, SET NULL.
+	on delete and on update options must be specified along with foreign key constraint specification.
+
+Order Processing Management System
+----------------------------------
+customers	[custno - n(4,0) - pk, custname - v(20), address - v(20), mobile - v(10) - u]
+items		[itemno - n(4,0) - pk, itemname - v(20), unitrate - n(4,2) - should be non-zero and non-negative,
+		opstock - n(6,0)]
+orders		[orderno - n(4,0) - pk, orderdate - d - default date should be system date, custno - n(4,0) - fk,
+		 ordervalue - n(6,2) - should be non-negative]
+orderdetails	[orderno - n(4,0) - fk, itemno - n(4,0) - fk, qty - n(4) - should be non-zero and non-negative,
+		orderno + itemno - pk]
+
+
+
+for every constraint, we must provide a constraint name.
+(dbname_tablename_columnname_constraintshortcut)
+constraint name should not be repeated.
+
+constraints can be defined in 2 ways.
+a) column level specification
+	constraints are specified along with the column definition
+	mysql 8.x do not permit to use constraint clause here.
+b) table level specification
+	constraints are specified after defining all columns.
+	constraint clause allowed here.
+
+CREATE TABLE customers 
+(custno    int1 auto_increment,
+ custname  varchar(20),
+ address   varchar(20),
+ mobile    varchar(20),
+ constraint customers_custno_pk  primary key(custno),
+ constraint customers_mobile_un unique(mobile)
+);
+
+CREATE TABLE items
+(itemno int1 auto_increment,
+ itemname varchar(20),
+ unitrate decimal(4,2),
+ opstock decimal(6,0),
+ constraint items_itemno_pk primary key(itemno),
+ constraint items_unitrate_chk check(unitrate > 0)
+);
+
+
+primary key:
+------------
+1) it is a column (or) combination of columns used to identify each row uniquely.
+2) a table can have only one primary key.
+3) null values are not allowed.
+4) duplicates are not allowed.
+
+foreign key:
+------------
+1) it is a column (or) combination of columns used to establish relation to parent table from child table.
+2) a table can have multiple foreign keys.
+3) null values are allowed.
+4) duplicates are allowed.
+5) every foreign key must be defined as a primary key in it's parent table.
+6) the name, datatype and size must be same for the referencing column and referenced column.
+
+ CREATE TABLE orders
+ (orderno int1,
+  orderdate datetime  default now(),
+  custno int1,
+  ordervalue decimal(6,2),
+  constraint orders_orderno_pk primary key(orderno),
+  constraint orders_custno_fk foreign key(custno) references customers(custno) on delete cascade,
+  constraint orders_ordervalue_chk check(ordervalue>=0)
+);
+
+CREATE  TABLE  orderdetails
+(orderno   int1,
+ itemno    int1,
+ qty       int1,
+ constraint orderdetails_orderno_fk   foreign key(orderno) references orders(orderno),
+ constraint orderdetails_itemno_fk    foreign key(itemno)  references items(itemno),
+ constraint orderdetails_qty_chk      check (qty > 0),
+ constraint orderdetails_orderno_itemno_pk  primary key(orderno, itemno)
+); 
+
+
