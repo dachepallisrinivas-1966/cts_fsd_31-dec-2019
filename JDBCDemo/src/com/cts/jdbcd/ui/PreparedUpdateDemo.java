@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class PreparedStatementDemo {
+public class PreparedUpdateDemo {
 
 	public static void main(String[] args) {
 		try (

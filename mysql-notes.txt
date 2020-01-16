@@ -162,6 +162,15 @@ ALTER TABLE emps
 ADD deptno int1, 
 ADD constraint emps_deptno_fk foreign key(deptno) references depts(deptno);
 
+how to rename column?
+---------------------
+ALTER TABLE  tablename
+RENAME  column-name  to  new-name;
+
+ALTER  TABLE  emps
+RENAME  hire_date to date_joined;
+
+
 
 how to remove primary key of emps table?
 ------------------------------------------
@@ -580,5 +589,24 @@ using (location_id);
 
 drop view v1;
 drop view v2;
+
+					MYSQL Programming
+					-----------------
+Stored Procedures
+------------------
+1) IN Parameters:
+   --------------
+DELIMITER //
+CREATE PROCEDURE increase_max_salary_for_job ( IN  the_job_id VARCHAR(20),  IN  increase_amount  DECIMAL(6,2))
+BEGIN
+	UPDATE JOBS
+	SET max_salary = max_salary + increase_amount
+	WHERE job_id = the_job_id;
+    	commit;
+END //
+
+DELIMITER ;
+
+
 
 
