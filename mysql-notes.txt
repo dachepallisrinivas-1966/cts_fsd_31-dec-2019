@@ -98,4 +98,487 @@ CREATE  TABLE  orderdetails
  constraint orderdetails_orderno_itemno_pk  primary key(orderno, itemno)
 ); 
 
+ALTER TABLE:
+------------
+this command is used to modify the structure of the table.
+structure means column name, type, size etc.,
+a) adding a new column
+b) modify the datatype of a column
+c) modify the size of a column
+
+create table emps
+(empno  numeric(4,0),
+ ename  varchar(5)
+);
+
+ALTER  TABLE  emps
+ADD   doj  date;
+
+ALTER  TABLE  emps
+ADD   desg  varchar(10),
+ADD   salary numeric(6,2);
+
+ALTER  TABLE  emps
+MODIFY  ename varchar(6);
+
+
+note:
+we can increase the width of a column. but we can decrease the width if it leads to no data loss.
+
+
+Note:
+when update and delete commands are not working properly,
+use the following step ...
+MySQL WorkBench => Edit -> preferences -> SQL Editor -> uncheck Safe update check box
+reconnect MySQL WorkBench.
+
+ALTER  TABLE  emps
+DROP  COLUMN  desg;
+
+
+ALTER  TABLE  emps
+DROP  COLUMN  salary,
+DROP  COLUMN  doj;
+
+How to add primary key?
+-----------------------
+ALTER TABLE emps
+ADD constraint emps_empno_pk primary key(empno);
+
+how to add check constraint?
+-----------------------------
+ALTER TABLE emps 
+ADD constraint emps_salary_chk check(salary >=10000); 
+
+depts (deptno - i1 - ai - pk, dname - v(10))
+emps (deptno - fk)
+
+create table depts 
+( deptno int1 auto_increment , 
+  dname varchar(10), 
+  constraint depts_deptno_pk primary key(deptno) );
+
+ALTER TABLE emps 
+ADD deptno int1, 
+ADD constraint emps_deptno_fk foreign key(deptno) references depts(deptno);
+
+
+how to remove primary key of emps table?
+------------------------------------------
+alter  table emps
+drop primary key;
+
+how to remove check constraint of emps table?
+---------------------------------------------
+alter table emps
+drop check emps_salary_chk;
+
+
+how to remove the foreign key of emps table?
+---------------------------------------------
+ alter table emps
+ drop foreign key emps_deptno_fk;
+
+how to display constraints given for a particular table?
+--------------------------------------------------------
+select COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_COLUMN_NAME, REFERENCED_TABLE_NAME
+from information_schema.KEY_COLUMN_USAGE
+where TABLE_NAME = 'table to be checked';
+
+relational algebra operations:
+-------------------------------
+projection	: getting few columns of the table.
+restriction	: getting few rows based on a criteria 
+product		: (cartesian product) we get the combinations of all rows from both tables.
+union		: all rows from result of both select statements.
+intersection	: common rows from result of both select statements.
+difference	
+join
+
+we can perform all these operations using SELECT command.
+
+hr schema
+	employees, departments,jobs, locations, job_history, regions, countries.
+
+what is Schema, Database, User?
+(google it)
+
+
+SELECT:
+---------
+it support three operations.
+a) arithmetic expressions
+b) column aliases
+c) literals
+
+display monthly salary of all employees.
+
+select employee_id, first_name, salary, commission_pct, salary*commission_pct, salary+(salary*commission_pct)
+from employees;
+
+null:
+-----
+whenever a column lacks it's value then it is said to be null. 
+the null is not same as ZERO.
+it is either unassigned, undetermined or unpredicted.
+any arithmetic operation performed with null value, leads to null result.
+the null also occupy some space in the database. 
+
+handling null values using IFNULL():
+-------------------------------------
+IFNULL(expr1, expr2)
+
+select employee_id, first_name, salary, commission_pct, salary*ifnull(commission_pct, 0), salary+(salary*ifnull(commission_pct,0)
+from employees;
+
+
+column aliases:
+-----------------
+we can provide an alternate name given for a column that is used in the output of current select command.
+it must be enclosed within double quotes unless it is a single word.
+it is prefixed with "as" keyword, which is again optional.
+
+select employee_id, first_name, salary, commission_pct, salary*ifnull(commission_pct, 0) as "Commisstion Amount",
+ salary+(salary*ifnull(commission_pct,0)) as "Monthly Salary"
+from employees;
+
+
+literals:
+----------
+They must be enclosed within single quotes and it is repeated for each row in the output of current select command.
+
+display the full name of all employees.
+
+select employee_id, concat(first_name, ' ', last_name) as "Full Name"
+from employees;
+
+select concat(first_name, ' ', last_name, ' was hired on ', hire_date, ' with the current salary of ', salary) as "Employee Info"
+from employees;
+
+DISTINCT qualifier:
+--------------------
+this clause is used to eliminate duplicates in the output of current select command.
+
+select distinct department_id
+from employees;
+
+select distinct job_id
+from employees;
+
+select distinct department_id, job_id
+from employees;
+
+WHERE clause:
+-------------
+select employee_id, first_name, salary
+from employees
+where salary > 15000;
+
+select employee_id, first_name, salary
+from employees
+where first_name = 'LEX';
+
+Note:
+-----
+comparisions are case insensitive.
+
+select employee_id, first_name, hire_date, salary
+from employees
+where hire_date <= '1990-01-01';
+
+select employee_id, first_name, department_id, salary
+from employees
+where department_id >= 50 and salary <= 10000;
+
+select employee_id, first_name, department_id, salary
+from employees
+where department_id >= 50 or salary <= 15000;
+
+display all employees who are not sales managers. (job_id   'SA_MAN')
+
+select employee_id, first_name, job_id 
+from employess 
+where job_id != 'SA_MAN'
+
+(or)
+
+select employee_id, first_name, job_id
+from employees
+where  job_id not = 'SA_MAN';
+
+Arithmetic Operators:
+	+	-	*	/
+Relational Operators:
+	>	<	=	>=	<=	!=
+Logical Operators:
+	AND	OR	NOT
+Special Operators:
+	between
+	in
+	like
+	is null
+
+
+display all employees whose salary is in the range 10000 and 15000.
+
+select employee_id, first_name, salary
+from employees
+where salary between 10000 and 15000;
+(or)
+select employee_id, first_name, salary
+from employees
+where salary >= 10000 and salary <= 15000;
+
+display all employees who are working in department id 10 or 20 or 50 or 60.
+
+select employee_id, first_name, department_id
+from employees
+where department_id in (10,20,50,60);
+
+(or) 
+select employee_id, first_name, department_id
+from employees
+where department_id = 10 or department_id = 20 or department_id = 50 or department_id = 60;
+
+like:
+-----
+supports wild card characters.
+%	replace 0 or more unknown characters.
+_	replace 1 unknown character.
+
+display all employees whose first name begin with alphabet 's'.
+
+select first_name
+from employees
+where first_name like 's%';
+
+select first_name
+from employees
+where first_name like '_a%';
+
+select first_name
+from employees
+where first_name like '___';	(3 under scores)
+
+select employee_id, first_name, hire_date
+from employees
+where hire_date like '1995%';
+
+======================================================================
+isnull:
+	this is to compare with null values.
+
+display all employees who are not earning any commission.
+
+select employee_id, first_name, commission_pct
+from employees
+where commission_pct is null;
+
+Negation operators:
+	not between
+	not in
+	not like
+	is not null
+
+ORDER BY:
+---------
+this is used to display the data in a particular order.
+
+
+Top-N Analysis (LIMIT clause):
+-------------------------------
+
+is to perform Top-n analysis.
+
+display 3 senior most employees.
+
+select employee_id, first_name, hire_date, salary
+from employees
+order by hire_date
+limit 3;
+
+
+display 3 recent employees.
+
+select employee_id, first_name, hire_date, salary
+from employees
+order by hire_date desc
+limit 3;
+
+
+SELECT
+	FROM
+	WHERE
+	GROUP BY
+	HAVING
+	ORDER BY
+	LIMIT
+
+Library functions
+-----------------
+1) character functions
+
+	select upper('srinivas');
+
+	select first_name, upper(first_name), lower(first_name), length(first_name)
+	from employees;
+
+2) mathematical functions
+	select abs(-25), sqrt(24), sin(30), cos(30), tan(30), round(5.67), round(5.47), ceil(5.67), floor(5.67);
+
+3) date functions
+	select now(), date(now()), time(now());
+	select curdate(), curdate()+7, curdate()-270;
+4) logical functions
+	if(condition, true_expression, false_expression)
+	-------------------------------------------------
+	select employee_id, first_name, salary, if(salary > 10000, "Costly Employee", "Regular Employee")
+	from employees;
+
+	case:
+	------
+	select employee_id, first_name, department_id,  
+	case department_id
+		when 10 then 'Admin'
+		when 20 then 'Sales'
+		when 30 then 'Purchases'
+		else 'Production'
+	end
+	as "Department Name"
+	from employees;
+
+5) group functions (aggregate functions)
+	these aggregate functions work on groups of rows rather than invidual rows.
+	sum(), avg(), min(), max(), count()
+
+select sum(salary), avg(salary), min(salary), max(salary), count(salary)
+from employees;
+
+select count(*)
+from employees;
+
+select count(commission_pct)
+from employees;
+
+note:
+------
+group functions ignore null values.
+
+GROUP BY clause:
+----------------
+to divide rows logically into groups based on a single column or combination of columns.
+on each group we can perform calculations using aggregate functions.
+
+display total salary paid for each department.
+
+select department_id, sum(salary)
+from employees
+group by department_id;
+
+display average salary paid for each job.
+
+select job_id, avg(salary)
+from employees
+group by job_id;
+
+display no. of employees in each department.
+
+select department_id, count(*)
+from employees
+group by department_id;
+
+
+HAVING clause:
+	it is always used in conjunction with the GROUP BY clause.
+	this clause is used to filter rows after GROUPing.
+
+display all departments that contain atleast 3 of employees.
+
+select department_id, count(*)
+from employees
+group by department_id
+having count(*) >= 3;
+
+what is the difference between WHERE and HAVING clause?
+	WHERE clause is used to filter rows before grouping.
+	WHERE clause do not permit the use of aggregate functions.
+
+	HAVING clause is used to filter rows after grouping.
+	HAVING clause allow aggregate functions.
+
+
+JOIN:
+-----
+to extract data from multiple tables provided they share some relationship.
+
+two types.
+a) Equi Join	b) Non-Equi Join
+
+Display employee id, first name, salary, department name.
+
+select employee_id, first_name, salary, department_name
+from employees
+inner join departments
+using (department_id);
+
+
+select employee_id, first_name, salary, department_name
+from employees
+left outer join departments
+using (department_id);
+
+left outer join = inner join + missng rows in the left table
+right outer join = inner join + missng rows in the right table
+
+Sub Queries:
+------------
+inner query (sub query) is executed first,the result is passed to the outer query.
+and then outer query is executed.
+
+select col-1, col-2, ...
+from table-1 
+where col = (select col-1
+             from  table-2
+             where condition);
+
+display the first name of an employee who earn the highest salary.
+
+select first_name, salary
+from employees
+where salary = (select min(salary)
+from employees);
+
+display the department name which contains more employees.
+
+
+Views
+-----
+It is a window through which we can access the data that is there in the underlying table known as base table.
+It is a virtual table. 
+It contain no data on its own.
+It is stored as select statement only.
+
+create view v1
+as
+select employee_id, first_name, salary
+from employees
+where job_id = 'IT_PROG';
+
+select *
+from v1;
+
+create view v2
+as
+select employee_id, first_name, job_title, department_name, city
+from employees
+left outer join departments
+using (department_id)
+left outer join jobs
+using (job_id)
+left outer join locations
+using (location_id);
+
+drop view v1;
+drop view v2;
+
 
