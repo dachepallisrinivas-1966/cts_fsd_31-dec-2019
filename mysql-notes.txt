@@ -608,5 +608,45 @@ END //
 DELIMITER ;
 
 
+2) INOUT Parameters:
+   ----------------- 
+DELIMITER //
+CREATE PROCEDURE `greet_the_job`(INOUT job_title VARCHAR(50))
+BEGIN
+	SET job_title = concat('welcome ',job_title,' team!');
+END //
+
+DELIMITER ;
+
+
+3) OUT Parameters:
+   ---------------
+
+DELIMITER //
+CREATE PROCEDURE get_count_for_department(IN the_department_id INT, OUT the_count INT)
+BEGIN
+	SELECT COUNT(*) 
+    INTO   the_count
+    FROM   employees
+    WHERE  department_id = the_department_id;
+END //
+
+DELIMITER ;
+
+4) Returning the Resultset:
+   ------------------------
+
+DELIMITER //
+CREATE PROCEDURE get_employees_for_department(IN the_department_id INT)
+BEGIN
+	SELECT employee_id, first_name, salary, department_id
+    FROM   employees
+    WHERE  department_id = the_department_id;
+END //
+
+DELIMITER ;
+
+
+
 
 

@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class CallableDemo {
+public class CallableInParameterDemo {
 
 	public static void main(String[] args) {
 		try (
