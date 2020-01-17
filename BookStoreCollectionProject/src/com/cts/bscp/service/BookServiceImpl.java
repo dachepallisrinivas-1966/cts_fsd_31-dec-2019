@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.cts.bscp.dao.BookDAOIOStreamImpl;
+import com.cts.bscp.dao.BookDAOJDBCImpl;
 import com.cts.bscp.dao.IBookDAO;
 import com.cts.bscp.exception.BookStoreException;
 import com.cts.bscp.model.Book;
@@ -21,7 +22,8 @@ public class BookServiceImpl implements IBookService {
 	
 	public BookServiceImpl() throws BookStoreException {
 		// bookDao = new BookDAOCollectionImpl();
-		bookDao = new BookDAOIOStreamImpl();
+		// bookDao = new BookDAOIOStreamImpl();
+		bookDao = new BookDAOJDBCImpl();
 		
 	}
 	

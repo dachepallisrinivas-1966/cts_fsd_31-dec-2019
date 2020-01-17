@@ -536,8 +536,9 @@ from employees
 left outer join departments
 using (department_id);
 
-left outer join = inner join + missng rows in the left table
-right outer join = inner join + missng rows in the right table
+left outer join = inner join + missing rows in the left table
+right outer join = inner join + missing rows in the right table
+
 
 Sub Queries:
 ------------
@@ -557,7 +558,9 @@ from employees
 where salary = (select min(salary)
 from employees);
 
-display the department name which contains more employees.
+display the department name which contains more employees?
+
+...
 
 
 Views

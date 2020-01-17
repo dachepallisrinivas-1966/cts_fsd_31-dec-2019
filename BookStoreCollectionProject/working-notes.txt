@@ -1,0 +1,20 @@
+1. create "res" folder.
+   create a text file "dbscripts".
+   (table creation, ...)
+
+2. create jdbc.properties file.
+   put the database related properties.
+
+3. create "lib" folder
+   place jdbc jar file, add it to build path
+
+4. create "util" package
+   create a java class ConnectionProvider.java
+   (to maintain singleton design pattern)
+
+5. In "dao" package, create "IQueryMapper" interface.
+   it contain all sql queries.
+
+6. In "dao" package, create BookDAOJDBCImpl.java
+
+
