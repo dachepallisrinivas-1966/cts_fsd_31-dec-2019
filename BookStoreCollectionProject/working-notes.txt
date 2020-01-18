@@ -2,19 +2,22 @@
    create a text file "dbscripts".
    (table creation, ...)
 
-2. create jdbc.properties file.
+2. open mysql workbench.
+   run the create table command mentioned in dbscripts in "hr" database.
+
+3. create jdbc.properties file.
    put the database related properties.
 
-3. create "lib" folder
+4. create "lib" folder
    place jdbc jar file, add it to build path
 
-4. create "util" package
+5. create "util" package
    create a java class ConnectionProvider.java
    (to maintain singleton design pattern)
 
-5. In "dao" package, create "IQueryMapper" interface.
+6. In "dao" package, create "IQueryMapper" interface.
    it contain all sql queries.
 
-6. In "dao" package, create BookDAOJDBCImpl.java
+7. In "dao" package, create BookDAOJDBCImpl.java
 
 

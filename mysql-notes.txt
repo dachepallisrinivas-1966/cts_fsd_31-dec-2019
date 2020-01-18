@@ -213,6 +213,37 @@ what is Schema, Database, User?
 (google it)
 
 
+				Transaction Processing Commands
+				-------------------------------
+1) commit
+2) rollback
+
+transaction means "logical unit of workdone" (LUW).
+transactions are divided into two categories.
+a) DDL Transactions : contain only one DDL command - create, alter, drop, truncate
+b) DML Transactions : contain one or more DML commands.
+
+A transaction may be successful or unsuccessful based on how it ends.
+a) DDL commands is issued						(S)
+b) exited from command line client (or) quit from workbench		(S)
+c) commit command is issued						(S)
+d) rollback command is issed						(U)
+e) network errors such as dead lock 					(U)
+f) power failure							(U)
+
+Note:
+-----
+Data once COMMITted cannot be ROLLBACKed.
+
+autocommit:
+-----------
+By default the autocommit is set to true.
+To test the transaction management, we need to set it to false.
+
+setAutoCommit(false);	in your java code.
+then use commit() method or rollback() method.
+
+
 SELECT:
 ---------
 it support three operations.
