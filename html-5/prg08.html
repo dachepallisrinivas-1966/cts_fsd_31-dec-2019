@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Form Elements</title>
+</head>
+
+<body>
+    <form action="register.jsp">
+        <div>
+            <label for="sel1">Title </label>
+            <select name="title" id="sel1">
+                <option value="">---SELECT---</option>
+                <option value="Mr">Mr</option>
+                <option value="Miss">Miss</option>
+                <option value="Mrs">Mrs</option>
+                <option value="Dr">Dr</option>
+            </select>
+        </div>
+        <div>
+            <label for="txt1">UserName</label>
+            <input type="text" id="txt1" name="username" />
+        </div>
+        <div>
+            <label for="pwd1">Password</label>
+            <input type="password" id="pwd1" name="password" />
+        </div>
+        <div>
+            <label for="date1">Date Of Birth</label>
+            <input type="date" name="dob" id="date1" />
+        </div>
+        <div>
+            <label for="r1">Salary</label>
+            <input id="r1" type="range" min="1000" max="50000" value="25000" />
+        </div>
+        <div>
+            <label for="n1">Experience</label>
+            <input type="number" id="n1" />
+        </div>
+        <div>
+            <label for="file1">Attach Resume</label>
+            <input type="file" id="file1" />
+        </div>
+        <div>
+            <label>Skills</label>
+            <select name="skills" multiple>
+                <option value="">---SELECT---</option>
+                <option value="UI">User Interfaces</option>
+                <option value="DEV">Development</option>
+                <option value="SYS">Systems Administration</option>
+                <option value="DBA">Database Administration</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </div>
+    </form>
+
+</body>
+
+</html>
