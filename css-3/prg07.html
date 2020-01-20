@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+    body {
+        background-color : violet;
+    }
+    h1 {
+        color:red;
+    }
+    h2, h3 {
+        color : green;
+    }
+
+    
+    @media only screen and (min-width:768px) {
+        body {
+            background-color:green;
+        }
+        
+    }
+
+    @page {
+        size : landscape;
+    }
+    
+    @media print {
+        body {
+            background-color : blue;
+        }
+        
+        h1, h2, h3 {
+            color : black;
+        }
+        nav {
+            display : none;
+        }
+        a::after {
+            content : " <" attr(href) ">";
+            color:lightcoral;
+        }
+    }
+
+</style>
+
+
+<body>
+    <h1>This is main heading</h1>
+    <nav>
+        <a href="#">Link-1</a> |
+        <a href="#">Link-2</a> |
+        <a href="#">Link-3</a> |
+    </nav>
+    <h2>First Para</h2>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus tenetur quisquam iste enim maiores animi.
+        Necessitatibus assumenda minus officia error unde. Laboriosam sequi error saepe vero accusantium dolorum illo
+        temporibus nostrum rerum blanditiis molestias sapiente dolore tempora quasi tempore omnis earum harum, id vitae
+        facilis esse quos corporis recusandae hic. Blanditiis corrupti, libero animi vitae corporis amet, aspernatur
+        tempora fuga reprehenderit debitis cupiditate voluptatem dolorum, voluptate quo cumque eaque eos. Vitae omnis
+        reprehenderit cupiditate ad corporis nesciunt repellat minus itaque qui et suscipit, cum nihil mollitia voluptas
+        sunt cumque illo. Eveniet minus quisquam vitae ex eos, voluptate tenetur! Aut, voluptate!
+    </p>
+    <h3>Second Para</h3>
+    <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui ipsam ducimus dolore in voluptatum laborum at
+        alias blanditiis accusamus sit non aspernatur nihil odio quae, tempore ad similique placeat nobis libero!
+        Maiores ipsa placeat eligendi reiciendis, laborum modi magni laboriosam voluptate ratione assumenda vel tempora,
+        autem dignissimos reprehenderit alias inventore recusandae? Aspernatur obcaecati eius fugit quod accusamus quo,
+        amet odit dolor praesentium repellendus esse asperiores. Voluptate impedit porro ipsum dolor dolorum aperiam est
+        iure vel eos tempore quia blanditiis labore quo saepe deserunt, aut similique delectus quis eveniet iusto nisi
+        molestiae quisquam. At animi pariatur aliquam totam architecto possimus earum!
+        <a href="http://www.google.com">Refer google</a>
+    </p>
+</body>
+
+</html>
