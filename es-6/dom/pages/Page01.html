@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>My New Page 1</title>      
+        <script>
+            doOnStart = function(){
+                var para = document.createElement("p");
+                para.textContent="This is my new para dynamically generated"; 
+                
+                var bodyElement = document.querySelector("body");
+                bodyElement.appendChild(para);
+            }
+        </script>
+
+    </head>
+    <body>
+        <h2>A New Page</h2>        
+        <button type="button" onClick="doOnStart()">Add Para</button>
+
+        
+    </body>
+</html>
