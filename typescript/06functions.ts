@@ -1,3 +1,7 @@
+/*
+    the following program produce an error
+*/
+
 function add(n1 : number, n2:number) : number {
     let result : number;
     result = n1+n2;

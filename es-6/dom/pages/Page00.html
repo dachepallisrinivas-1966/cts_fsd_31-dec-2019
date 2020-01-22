@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        let add = function() {
+            let fn = document.querySelector("#firstNumber");
+            let sn = document.querySelector("#secondNumber");
+            let res = parseInt(fn.value) + parseInt(sn.value);
+            let resultElement = document.querySelector("#result");
+            resultElement.value = res.toString();    
+        }
+        let diff = function() {
+            let fn = document.querySelector("#firstNumber");
+            let sn = document.querySelector("#secondNumber");
+            let res = parseInt(fn.value) - parseInt(sn.value);
+            let resultElement = document.querySelector("#result");
+            resultElement.value = res.toString();    
+        }
+        let mul = function() {
+            let fn = document.querySelector("#firstNumber");
+            let sn = document.querySelector("#secondNumber");
+            let res = parseInt(fn.value) * parseInt(sn.value);
+            let resultElement = document.querySelector("#result");
+            resultElement.value = res.toString();    
+        }
+        let div = function() {
+            let fn = document.querySelector("#firstNumber");
+            let sn = document.querySelector("#secondNumber");
+            let res = parseInt(fn.value) / parseInt(sn.value);
+            let resultElement = document.querySelector("#result");
+            resultElement.value = res.toString();    
+        }
+    </script>
+
+</head>
+
+<body>
+    <form action="#">
+        <div>
+            <label>First Number:</label>
+            <input type="text" id="firstNumber" />
+        </div>
+        <div>
+            <label>Second Number:</label>
+            <input type="text" id="secondNumber" />
+        </div>
+        <div>
+            <label>Result:</label>
+            <input type="text" id="result" />
+        </div>
+        <div>
+            <button type="button" onclick="add()">Add</button>
+            <button type="button" onclick="diff()">Difference</button>
+            <button type="button" onclick="mul()">Multiply</button>
+            <button type="button" onclick="div()">Divide</button>
+
+        </div>
+    </form>
+</body>
+</html>
